@@ -1,3 +1,4 @@
 {
-    "markmap.defaultOptions": "{\"colorFreezeLevel\": [\"2\"]}"
+    "markmap.defaultOptions": "{\"colorFreezeLevel\": [\"2\"]}",
+    "markdown-preview-enhanced.enableScriptExecution": true
 }
