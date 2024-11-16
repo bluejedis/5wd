@@ -41,4 +41,8 @@ MAC地址的格式通常表示为六个字节，每个字节由两个十六进�
 
 &emsp;&emsp;<span style="font-size: 14px;">可以在连接到Wi-Fi时使用随机硬件地址，以增强隐私保护。
 
-
+## ARP
+ARP（Address Resolution Protocol）是IPv4协议族中的一种协议，它允许IPv4设备在局域网内通过MAC地址和IP地址进行通信。
+### 4种情况：
+直接(连接的网络/路由器) → 直接用ARP在表中查找 MAC地址
+间接（非直接连接的网络 上的主机/路由器）→ 用ARP找到下一个路由的MAC地址，剩下的交给它
