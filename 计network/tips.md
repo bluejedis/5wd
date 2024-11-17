@@ -24,8 +24,35 @@ F片偏移：13位，基本单位是8字节。
 ### Fragmentation 计算
 已知
 要求：
+## IP v4——Subnetting
+### 将一个C类网络208.115.21.0划分为4个子网
+前面的数字保持不变，后面的.0依次替换为：
+$00 = 0 $
+$01 = 1 * 2^6 = 64 $
+$10 = 1 * 2^7 = 128 $
+$11 = 1 * 2^6 + 1 * 2^7 = 192 $
+即
+子网1：208.115.21.0
+子网2：208.115.21.64
+子网3：208.115.21.128
+子网4：208.115.21.192
+<span style="font-size: 14px;">一个C类IP地址，其结构是前24位用于网络地址，后8位用于主机地址。
+当这8位中的2位用于子网地址时，我们实际上是在使用这8位中的最高两位来表示子网。
 
-# 硬件地址=MAC地址<span style="font-size: 14px;">（**M**edia **A**ccess **C**ontrol Address）
+#### 三类IP地址& 使用范围
+![](https://cdn-mineru.openxlab.org.cn/model-mineru/prod/f2e278ae9a152d96978ffc45243b7b127a36a1cce3578e4c25be1b688bd910d2.jpg)
+
+![](https://cdn-mineru.openxlab.org.cn/model-mineru/prod/8e5f99e160787c8b792c1180313a4d2d4e023d0e54160b7414f055ff18773b94.jpg)
+## IPv4——Subnet Mask
+- eg：(128.14.32.5/20)
+  - 掩码是20个连续的1和后续12个连续的0
+  - IP=10000000.00001110.00100000.00000101
+  - 掩码=11111111.11111111.11110000.00000000
+  - 网络前缀=10000000.00001110.00100000.00000000(128.14.32.0)
+
+二进制运算 2^8=128
+
+## IPv4——ARP ：硬件地址=MAC地址<span style="font-size: 14px;">（**M**edia **A**ccess **C**ontrol Address）
 硬件地址（Hardware Address），也称为物理地址（Physical Address）或**MAC地址**（Media Access Control Address），是分配给网络接口控制器（NIC）的唯一标识符。
 用于局域网（LAN）或其他网络技术中进行通信。MAC地址通常由48位或64位二进制数组成，以十六进制表示，并且全球唯一。
 
@@ -41,8 +68,9 @@ MAC地址的格式通常表示为六个字节，每个字节由两个十六进�
 
 &emsp;&emsp;<span style="font-size: 14px;">可以在连接到Wi-Fi时使用随机硬件地址，以增强隐私保护。
 
-## ARP
+### ARP
 ARP（Address Resolution Protocol）是IPv4协议族中的一种协议，它允许IPv4设备在局域网内通过MAC地址和IP地址进行通信。
-### 4种情况：
+#### 4种情况：
 直接(连接的网络/路由器) → 直接用ARP在表中查找 MAC地址
 间接（非直接连接的网络 上的主机/路由器）→ 用ARP找到下一个路由的MAC地址，剩下的交给它
+
