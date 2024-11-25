@@ -1,3 +1,53 @@
+
+# example-发送一条推文
+```mermaid
+graph TD
+    A[用户发送推文] --> B[应用层: **HTTP**请求]:::whitetext
+    B --> C[传输层: **TCP**分段]:::whitetext
+    C --> D[网络层: **IP**路由]:::whitetext
+    D --> E[数据链路层: **帧**处理]:::whitetext
+    E --> F[物理层: 信号传输]
+    F --> G[推特服务器]
+classDef whitetext fill:#fff
+```
+1. 应用层 (Application Layer)
+   - 处理特定应用程序的协议
+     - HTTP (网页)
+     - FTP (文件传输)
+     - SMTP (邮件)
+     - 游戏专用协议
+   - 生成用户数据
+2. 传输层 (Transport Layer)
+  - 数据分段
+  - 添加信息
+    - 端口号
+    - 序列号
+  -协议
+    - TCP (可靠传输)
+    - UDP (快速传输)
+
+3. 网络层 (Network Layer)
+  - IP协议处理
+  - 添加地址信息
+    - 源IP地址
+    - 目标IP地址
+  - 路由选择
+  - 数据包转发
+4. 数据链路层 (Data Link Layer)
+   - 数据分帧
+   - MAC地址处理
+   - 错误检测
+   - 流量控制
+5. 物理层 (Physical Layer)
+- 数据信号转换
+  - 数字信号
+  - 电信号
+  - 光信号
+- 物理传输介质
+  - 网线
+  - 光纤
+  - 无线电波
+
 # IP
 IP在TCP/IP中的位置:
 ![image](https://bluejedis.github.io/picx-images-hosting/image.3yegz5qm1p.webp)
