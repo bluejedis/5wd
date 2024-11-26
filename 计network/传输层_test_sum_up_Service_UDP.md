@@ -15,7 +15,7 @@
      | **SMTP** | **25** |
      | DNS | 53 |
      | **TFTP** | **69** |
-     | HTTP | 80 |
+     | HTTP | **80**← | 
      | **POP3** | **110** |
      | HTTPS | 443 |
 
@@ -59,8 +59,10 @@
     - **目的**端口
       - 目的端口号
       - 这在终点**交付**报文时**必须使用**到
-- ![](https://cdn-mineru.openxlab.org.cn/model-mineru/prod/05fa857d9ae050353446295e04e96bef0c74167c8553e5cf4439dd5c06e12f8d.jpg)  
-图5.4UDP数据报的首部和伪首部  
+- <div style="display: flex;">
+  <img src="https://cdn-mineru.openxlab.org.cn/model-mineru/prod/05fa857d9ae050353446295e04e96bef0c74167c8553e5cf4439dd5c06e12f8d.jpg" alt="UDP数据报" style="width: 550px; margin-right: 10px;">
+  <img src="https://cdn-mineru.openxlab.org.cn/model-mineru/prod/4f25e5e7af600a926e06cfbeecdb4d247bc24f97f4e1b6d8267cb4459a094260.jpg" alt="TCP报文段" style="width: 600px;">
+</div>
 
 ### 应用场景
 - 远程登录 依靠一个客户端→服务器 的可靠连接
@@ -161,12 +163,26 @@
 
 # TCP 
 ## 报文
-- TCP和UDP首部均含检验和
-  - TCP检验和不仅检验数据，还检验TCP首部
-  - UDP检验和仅检验数据
-- TCP首部独有的是 **seq** 和 **ack**
+
 ## 连接
 ## 控制
 - rwnd &emsp;&emsp;cwnd  &emsp;&emsp;ssthresh
 - 接收窗口  拥塞窗口   慢开始门限
   - **rwnd**即**接收方** 允许**连续接收**的**能力**
+## TCP与UDP
+### 首部
+- TCP和UDP首部均含检验和
+  - TCP检验和不仅检验数据，还检验TCP首部
+  - UDP检验和仅检验数据
+- TCP首部独有的是 **seq** 和 **ack**
+#### 伪首部
+##### 伪首部协议字段
+- 用于指明上层协议是TCP还是UDP
+  - 17 → UDP
+  - 6 → TCP
+##### 首部&伪首部' 区别
+核心区别：
+- **伪首部**是为了计算校验和而设计的临时结构，**不参与实际传输**
+  - 包含了IP层的信息(源IP和目的IP)
+- **首部**是**实际传输**数据包的组成部分
+  - 首部不包含~

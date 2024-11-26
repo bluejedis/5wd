@@ -1,5 +1,6 @@
 
-# example-发送一条推文
+# "发送"的 全局概览
+## example-发送一条推文
 ```mermaid
 graph TD
     A[用户发送推文] --> B[应用层: **HTTP**请求]:::whitetext
@@ -47,6 +48,96 @@ classDef whitetext fill:#fff
   - 网线
   - 光纤
   - 无线电波
+## H1→R1→R2→H2
+- ![](https://cdn-mineru.openxlab.org.cn/model-mineru/prod/e7e297fbb0520613c7252ae1f3530980f5248c701458e45dd8079c49662f2683.jpg)  
+图3.1主机H1向H2发送数据  
+
+- ![](https://cdn-mineru.openxlab.org.cn/model-mineru/prod/25920ca739682fceb5264e70ee939f8d7abe7feee0fa034448b85f86ab86b5f8.jpg)  
+图3.2从层次上看数据的流动  
+## 网络层具体的传输过程
+- 地址解析流程
+- NAT处理流程
+- 路由选择流程
+- MTU检查和分片
+- 帧封装过程
+- 
+  ```mermaid
+  flowchart TB
+    Start[IP数据报]:::whitetext --> AddrCheck{需要地址解析?}
+    
+    AddrCheck -->|是| ARP[ARP协议处理]:::whitetext
+    ARP --> ARPCache{ARP缓存?}
+    ARPCache -->|有| GetMAC[获取MAC地址]:::whitetext
+    ARPCache -->|无| ARPRequest[发送ARP请求]
+    ARPRequest --> GetMAC
+    
+    AddrCheck -->|否| NATCheck{需要NAT?}
+    GetMAC --> NATCheck
+    
+    NATCheck -->|是| NAT[NAT协议处理]:::whitetext
+    NAT --> NATTable[更新NAT表]
+    NATTable --> Route[路由选择]
+    
+    NATCheck -->|否| Route
+    
+    Route --> RouteProtocol[路由协议处理]:::whitetext
+    RouteProtocol --> RouteTable[查询路由表]
+    RouteTable --> NextHop[确定下一跳]
+    
+    NextHop --> MTUCheck{大于MTU?}:::whitetext
+    MTUCheck -->|是| Fragment[分片处理]
+    Fragment --> Frame[封装成帧]:::whitetext
+    
+    MTUCheck -->|否| Frame
+    
+    Frame --> AddHeader[添加帧头帧尾]
+    AddHeader --> Checksum[计算校验和]
+    Checksum --> End[发送到数据链路层]
+    classDef whitetext fill:#fff
+  ```
+## data的变换过程
+### **传输层+网络层**:
+<div style="display: flex;">
+  <img src="https://cdn-mineru.openxlab.org.cn/model-mineru/prod/05fa857d9ae050353446295e04e96bef0c74167c8553e5cf4439dd5c06e12f8d.jpg" alt="UDP数据报" style="width: 550px; margin-right: 10px;">
+  <img src="https://cdn-mineru.openxlab.org.cn/model-mineru/prod/4f25e5e7af600a926e06cfbeecdb4d247bc24f97f4e1b6d8267cb4459a094260.jpg" alt="TCP报文段" style="width: 600px;">
+</div>
+
+#### IP数据报封装过程
+- 数据封装顺序
+  1. 应用层**数据** -> 【传输层封装 -> 网络层封装】 -> 数据链路层封装
+- 传输层处理
+  * TCP将数据封装成TCP报文段
+  * UDP将数据封装成UDP数据报
+- 网络层处理
+  * 接收来自传输层的TCP报文段或UDP数据报
+  * 添加IP首部，形成IP数据报
+  * IP数据报包含了完整的TCP报文段或UDP数据报
+
+关键说明
+* IP数据报是在网络层新增IP首部后形成的
+* 不是将TCP/UDP数据报分离后形成的
+* **每一层**都是在**上一层**的**基础上** **添加**自己的**首部信息**
+* 这是一个自上而下的封装过程
+
+### IP数据报 → 帧
+
+#### 每一层的首部都会向下传递，作为下一层的<span style="color: blue;">数据</span>部分
+这是网络协议分层封装的基本原则。
+
+1. 应用层数据
+   - 应用层数据向下传递给传输层
+
+2. 传输层封装
+   - TCP/UDP首部 + 应用层数据
+   - 整体向下传递给网络层
+
+3. 网络层封装
+   - IP首部 + (TCP/UDP首部 + 应用层数据)
+   - 整体向下传递给数据链路层
+
+4. 数据链路层封装
+   - 帧首部 + (IP首部 + TCP/UDP首部 + 应用层数据) + 帧尾部
+
 
 # IP
 IP在TCP/IP中的位置:
@@ -124,3 +215,6 @@ ARP（Address Resolution Protocol）是IPv4协议族中的一种协议，它允�
 直接(连接的网络/路由器) → 直接用ARP在表中查找 MAC地址
 间接（非直接连接的网络 上的主机/路由器）→ 用ARP找到下一个路由的MAC地址，剩下的交给它
 
+# Q
+- IPv4
+- IPv6
