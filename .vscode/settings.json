@@ -1,5 +1,7 @@
 {
     "markmap.defaultOptions": "{\"colorFreezeLevel\": [\"2\"]}",
     "markdown-preview-enhanced.enableScriptExecution": true,
-    "editor.unicodeHighlight.includeStrings": false
+    "editor.unicodeHighlight.includeStrings": false,
+    "markdown-preview-enhanced.plantumlJarPath": "C:\\Program Files\\PlantUML\\plantuml-1.2024.8.jar",
+    "markdown-preview-enhanced.plantumlServer": ""
 }
